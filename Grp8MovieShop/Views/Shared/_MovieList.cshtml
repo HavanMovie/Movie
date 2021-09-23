@@ -1,0 +1,36 @@
+﻿
+    <div class="panel panel-default col-sm-3" style="border:solid 3px;border-color:saddlebrown;">
+        <div class="panel-heading" style="background-color:saddlebrown">
+            <img class="img-thumbnail" src="@Url.Content(Model.ImageUrl)" alt="No Image" style="height:200px;width:200px;" />
+        </div>
+        <div class="panel-body" style="background-color:burlywood;word-wrap:break-word;height:200px">
+            <b>Title:</b>@Model.Title<br />
+            <b>Director:</b>@Model.Director<br />
+            <b>Release Year:</b>@Model.ReleaseYear<br />
+            <b>Price:</b>@Model.Price kr<br />
+            @if (Session["Search"] != null)
+            {
+                <button class="btn btn-warning" style="color:black;position:absolute;bottom:10px;"
+                        onclick="location.href='@Url.Action("AddtoCart", "Movies", new { MovieId = Model.Id, IncorDec = 1, IsCart = 2 })'">
+                    Add to Cart
+                </button>
+            }
+            else if (Session["CurrentPage"] != null)
+            {
+                <button class="btn btn-warning" style="color:black;position:absolute;bottom:10px;"
+                        onclick="location.href='@Url.Action("AddtoCart","Movies",new { MovieId = Model.Id,IncorDec=1,IsCart=3 })'">
+                    Add to Cart
+                </button>
+
+            }
+            else
+            {
+                <button class="btn btn-warning" style="color:black;position:absolute;bottom:10px;"
+                        onclick="location.href='@Url.Action("AddtoCart","Movies",new { MovieId = Model.Id,IncorDec=1,IsCart=0 })'">
+                    Add to Cart
+                </button>
+
+            }
+        </div>
+
+    </div>

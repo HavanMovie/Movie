@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron" style="background-color:burlywood">
+    <h1>Welcome to Movie shop!</h1>
+    @Html.ActionLink("Add Movie", "Create", "Movies")<br />
+    @Html.ActionLink("Shop Movies", "MovieList", "Movies")<br />
+    @Html.ActionLink("Search Movies", "SearchMovie", "Movies")<br />
+    @Html.ActionLink("Check Orders", "CheckOrders", "Customers")<br />
+    @Html.ActionLink("Shop Movies New", "PaginateMovies", "Movies")<br />
+    @Html.ActionLink("Assign Departments", "AssignDepartments", "Home")
+</div>

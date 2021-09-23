@@ -1,0 +1,17 @@
+﻿@model Tuple<SelectList, SelectList>
+@{
+    ViewBag.Title = "AssignDepartments";
+}
+@using (Html.BeginForm())
+{
+    <h2>AssignDepartments</h2>
+    <div>
+        Department:
+        @Html.DropDownList("DeptName", Model.Item1, "Select", "")
+    </div>
+    <div>
+        Employee:
+        @Html.DropDownList("EmpName", Model.Item2, "Select", "")
+    </div>
+    <div><button>Submit</button></div>
+}

@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "SearchMovie";
+}
+
+<h2>Search Movies</h2>
+<head>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script>
+            jQuery(document).ready(function ($) {
+
+                $('#SrchBtn').click(function () {
+                    $.fn.LoadMovies();
+                });
+
+                $.fn.LoadMovies = function () {
+                    var mov = $("#MovTxt").val();
+                    //if (mov != '') {
+                        $.ajax({
+                            url: "/Movies/SearchMovieList",
+                            data: { movie: mov },
+                            contentType: 'application/html;charset=utf-8',
+                            type: 'GET',
+                            dataType: 'html'
+                        }).done(function (result) {
+                                $('#ListDiv').html(result);
+
+                        });
+                    //}
+                    //else
+                    //{
+                    //    $('#ListDiv').html('<h3 style="color:red;">Please enter something to search!</h3>');
+                    //}
+                }
+
+                var mov = '@Request.RequestContext.HttpContext.Session["Search"]';
+                if (mov != '')
+                {
+                        $("#MovTxt").val(mov);
+                       $.fn.LoadMovies();
+                }
+
+
+        });
+    </script>
+</head>
+<body style="background-color:goldenrod">
+    <div>
+        <input type="text" id="MovTxt" />
+        <button id="SrchBtn">Search</button>
+    </div>
+    <div id="ListDiv"></div>
+
+</body>
+

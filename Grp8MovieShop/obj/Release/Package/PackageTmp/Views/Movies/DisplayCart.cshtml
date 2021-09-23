@@ -1,0 +1,75 @@
+﻿@model Grp8MovieShop.Models.ViewModels.DisplayCartVM
+@{
+    ViewBag.Title = "DisplayCart";
+}
+
+<h2>DisplayCart</h2>
+<head>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#PlcOrdBtn').click(function () {
+                $('#CDiv').show();
+                $('#PlcOrdBtn').prop('disabled', true);
+            });
+
+            $('#ValBtn').click(function () {                
+                $.fn.VerifyCustomer();
+                //VerifyCustomer();
+            });
+
+            $.fn.VerifyCustomer = function () {
+                var Email = $('#Emailtxt').val();
+                if (Email != '') {
+
+                    $.ajax({
+                        url: "/Customers/ValidateCustomer",
+                        data: { email: Email },
+                        contentType: 'application/html;charset=utf-8',
+                        type: 'GET',
+                        dataType: 'html'
+                    }).done(function (result) {
+                        $('#ResDiv').html(result);
+                    });
+                }
+            }
+
+        });
+    </script>
+</head>
+<table class="table">
+    <tr>
+        <th>Movie</th>
+        <th>Release Year</th>
+        <th>No.of Copies</th>
+        <th>Price</th>
+    </tr>
+    @{ var MoviesList = Model.DispMovieList.ToList();
+        var CopiesList = Model.MovieCopiesList.ToList();
+        var PriceList = Model.PriceList.ToList();
+        int cnt = 0;}
+    @foreach (var movie in MoviesList)
+    {
+        <tr>
+            <td>@Html.ActionLink(movie.Title, "Details", "Movies", new { id = movie.Id }, null)</td>
+            <td>@movie.ReleaseYear</td>
+            <td>
+                <div>
+                    <button onclick="location.href='@Url.Action("AddtoCart","Movies",new { MovieId = movie.Id, IncorDec = 0,IsCart=1})'">-</button>
+                    @CopiesList.ElementAt(cnt)
+                    <button onclick="location.href='@Url.Action("AddtoCart","Movies",new { MovieId = movie.Id, IncorDec = 1 ,IsCart=1})'">+</button>
+                </div>
+            </td>
+            <td>@PriceList.ElementAt(cnt) kr</td>
+        </tr>
+        cnt += 1;
+    }
+    <tr><td colspan="4" align="right"><h3>Total:@Model.TotalPrice kr</h3></td></tr>
+    <tr><td colspan="4" align="center"><button class="btn btn-danger" id="PlcOrdBtn">Place Order</button></td></tr>
+</table>
+<div id="CDiv" hidden>
+    <label>Enter E-mail Address</label>
+    <input type="text" id="Emailtxt" value="" />
+    <button id="ValBtn" class="btn-primary">Validate</button>
+</div>
+<div id="ResDiv"></div>

@@ -1,0 +1,52 @@
+﻿
+@model IEnumerable<Grp8MovieShop.Models.Movie>
+@{
+    ViewBag.Title = "MovieList";
+}
+
+@*<h2>MovieList</h2>*@
+
+
+
+<head>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            if (sessionStorage['page'] == document.URL) {
+                $(document).scrollTop(sessionStorage['scrollTop']);
+            }
+        });
+
+        $(document).scroll(function () {
+            sessionStorage['page'] = document.URL;
+            sessionStorage['scrollTop'] = $(document).scrollTop();
+        });
+
+
+    </script>
+</head>
+
+
+@if (ViewBag.Count == 0)
+{
+    if (ViewBag.Flag==0)
+    {
+        <div style="color:red;"><h3>No results found!</h3></div>
+    }
+    else
+    {
+        <div style="color:red;"><h3>Please enter something to search!</h3></div>
+    }
+}
+else
+{
+    <div class="col-sm-12" style="margin:20px">
+        @foreach (var movie in Model)
+        {
+            @Html.Partial("_MovieList", movie)
+
+        }
+    </div>
+}
+

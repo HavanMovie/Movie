@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Grp8MovieShop.Models.ViewModels.OrderHistoryVM>
+@{
+    ViewBag.Title = "CheckOrders";
+}
+
+<h2>Order History</h2>
+<form>
+    <div class="col-sm-12">
+        <div class="col-sm-12">
+            <label>Email:</label>
+            <input type="text" name="email" />
+
+            <button>Check Orders</button>
+        </div>
+        @if (Model.Count() > 0)
+        {
+            foreach (var order in Model.Select(m => m.OrderId).Distinct())
+
+            {
+                <div class="col-sm-12 jumbotron">
+
+
+                    <div class="col-sm-12"><b>Order No: </b>@order</div><hr />
+                    <div class="col-sm-3">
+                        <b>Movie </b>
+                    </div>
+                    <div class="col-sm-3">
+                        <b>No.of Copies </b>
+                    </div>
+                    <div class="col-sm-offset-3">
+                        <b>Price </b>
+                    </div>
+                    @foreach (var item in Model.Where(m => m.OrderId == order))
+                    {
+
+                        <div class="col-sm-3">
+                            @item.MovieTitle
+                        </div>
+                        <div class="col-sm-3">
+                            @item.NoofCopies
+                        </div>
+                        <div class="col-sm-offset-3">
+                            @item.Price
+                        </div>
+
+                    }
+                    <hr />
+                    <div class="col-sm-12">
+                        <b>Ordered date: </b>@Model.Where(m => m.OrderId == order).Select(m => m.OrderedDate).FirstOrDefault()
+                    </div>
+                    <div class="col-sm-12">
+                        <b>Total Price: </b>@Model.Where(m => m.OrderId == order).Select(m => m.TotalPrice).FirstOrDefault()
+                    </div>
+
+                </div>
+
+            }
+        }
+        else
+        {
+            <div class="col-sm-12" style="color:red">
+                @ViewBag.Message
+            </div>
+        }
+    </div>
+</form>
+
