@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CustomerValidation</title>
+</head>
+<body>
+    @if((int)Session["Valid"]==0)
+    {
+    <div>
+        <h3 style="color:red">@Session["Msg"]</h3>
+        Please click on <b>Register</b> to continue.
+        <button class="btn btn-danger" onclick="location.href='@Url.Action("Create","Customers")'">Register</button>
+    </div>
+    }
+    else
+    {
+    <div>
+        <h3 style="color:green">@Session["Msg"]</h3>
+        Please click on <b>Proceed</b> to continue.
+        <button class="btn btn-success" onclick="location.href='@Url.Action("DisplayCart","Movies",new { summary = 1 },null)'">Proceed</button>
+    </div>
+    }
+    
+</body>
+</html>

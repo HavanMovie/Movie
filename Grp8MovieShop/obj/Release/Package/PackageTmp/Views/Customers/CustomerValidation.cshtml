@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CustomerValidation</title>
+</head>
+<body>
+    <div>
+        <h3></h3>
+        Please click on <b>Register</b> to continue.
+        <button onclick="location.href='@Url.Action("Create","Customers")'">Register</button>
+    </div>
+    <div>
+        <h3></h3>
+        Please click on <b>Proceed</b> to continue.
+        <button onclick="location.href='@Url.Action("DisplayCart","Movies")'">Proceed</button>
+    </div>
+</body>
+</html>

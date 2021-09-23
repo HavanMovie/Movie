@@ -1,0 +1,15 @@
+﻿
+@model IEnumerable<Grp8MovieShop.Models.Movie>
+@{
+    ViewBag.Title = "MovieList";
+}
+
+<h2>MovieList</h2>
+
+<div class="col-sm-12">
+    @foreach (var movie in Model)
+    {
+        @Html.Partial("_MovieList",movie)
+     
+    }
+</div>
